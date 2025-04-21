@@ -1,0 +1,41 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+  <title>Calculadora de Farm</title>  
+  <style>  
+    body { font-family: Arial; text-align: center; margin-top: 50px; }  
+    input, button { padding: 10px; margin: 5px; }  
+  </style>  
+</head>  
+<body>  
+  <h1>Calculadora de Farm</h1>  
+  <input type="number" id="qaPerCycle" placeholder="QA por ciclo (ex: 170)">  
+  <input type="number" id="secondsPerCycle" placeholder="Tempo por ciclo (ex: 10)">  
+  <input type="number" id="targetSx" placeholder="Objetivo em Sx (ex: 1)">  
+  <button onclick="calculate()">Calcular</button>  
+  <p id="result"></p>  
+
+  <script>  
+    function calculate() {  
+      const qaPerCycle = parseFloat(document.getElementById('qaPerCycle').value);  
+      const secondsPerCycle = parseFloat(document.getElementById('secondsPerCycle').value);  
+      const targetSx = parseFloat(document.getElementById('targetSx').value);  
+
+      // Cálculos  
+      const qaPerSecond = qaPerCycle / secondsPerCycle;  
+      const targetQa = targetSx * 1000000; // 1 Sx = 1.000.000 QA  
+      const totalSeconds = targetQa / qaPerSecond;  
+
+      // Converter para horas/minutos  
+      const hours = Math.floor(totalSeconds / 3600);  
+      const minutes = Math.floor((totalSeconds % 3600) / 60);  
+
+      // Exibir resultado  
+      document.getElementById('result').innerHTML = `  
+        <strong>Tempo necessário:</strong> ${hours}h ${minutes}m  
+        <br><small>(${totalSeconds.toFixed(2)} segundos)</small>  
+      `;  
+    }  
+  </script>  
+</body>  
+</html>  
